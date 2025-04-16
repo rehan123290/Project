@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check your EAMCET exam results online">
+    <title>EAMCET Results Portal</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="header">
+                <h1>EAMCET Results Portal</h1>
+                <p>Check your Engineering, Agriculture & Medical Common Entrance Test results</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="hallticket">Hall Ticket Number</label>
+                        <input type="text" id="hallticket" placeholder="Enter your hall ticket number" required pattern="[0-9]{8}" title="Please enter an 8-digit hall ticket number">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Check Results <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            
+            <div class="notification" id="notification" role="alert" aria-live="assertive">
+                <p id="notification-text"></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="result-container" id="result-container">
+        <div class="result-header">
+            <h2>EAMCET Results 2023</h2>
+            <div class="btn-group">
+                <button id="print-btn" class="btn-print" aria-label="Print results"><i class="fas fa-print" aria-hidden="true"></i> Print</button>
+                <button id="close-btn" class="btn-close" aria-label="Close results"><i class="fas fa-times" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        
+        <div class="student-info">
+            <div class="student-photo">
+                <div class="photo-placeholder">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="student-details">
+                <h3 id="student-name">Student Name</h3>
+                <p>Hall Ticket: <span id="result-hallticket"></span></p>
+                <p>Date of Birth: <span id="result-dob"></span></p>
+            </div>
+        </div>
+        
+        <div class="marks-container">
+            <h3>Subject-wise Marks</h3>
+            <table class="marks-table" aria-label="Subject-wise marks">
+                <thead>
+                    <tr>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Marks Obtained</th>
+                        <th scope="col">Max Marks</th>
+                    </tr>
+                </thead>
+                <tbody id="marks-tbody">
+                    <!-- Will be filled by JavaScript -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row">Total</th>
+                        <th id="total-obtained">0</th>
+                        <th id="total-max">160</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div class="rank-container">
+            <div class="rank-box">
+                <h4>EAMCET Rank</h4>
+                <p id="eamcet-rank">-</p>
+            </div>
+            <div class="rank-box">
+                <h4>Percentile</h4>
+                <p id="percentile">-</p>
+            </div>
+        </div>
+        
+        <div class="result-footer">
+            <p>This is a computer-generated result. For any discrepancies, please contact the EAMCET office.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; <span id="current-year"></span> EAMCET Results Portal. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="script.js" defer></script>
+</body>
+</html> 
