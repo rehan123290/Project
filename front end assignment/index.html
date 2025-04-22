@@ -1,0 +1,214 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System</title>
+  <!-- React CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <!-- Babel for JSX -->
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.6/babel.min.js"></script>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.13"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-500': '#2563EB',
+            'primary-600': '#1D4ED8',
+            'secondary-500': '#7C3AED',
+            'secondary-600': '#6B21A8',
+            'neutral-50': '#F9FAFB',
+            'neutral-200': '#E5E7EB',
+            'neutral-800': '#1F2937',
+            'success-500': '#10B981',
+            'error-500': '#EF4444',
+            'warning-500': '#F59E0B',
+            'info-500': '#3B82F6',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root {
+      --primary-500: #2563EB;
+      --primary-600: #1D4ED8;
+      --secondary-500: #7C3AED;
+      --secondary-600: #6B21A8;
+      --neutral-50: #F9FAFB;
+      --neutral-200: #E5E7EB;
+      --neutral-800: #1F2937;
+      --success-500: #10B981;
+      --error-500: #EF4444;
+      --warning-500: #F59E0B;
+      --info-500: #3B82F6;
+    }
+    [data-theme="dark"] {
+      --primary-500: #60A5FA;
+      --primary-600: #3B82F6;
+      --secondary-500: #A78BFA;
+      --secondary-600: #8B5CF6;
+      --neutral-50: #1F2937;
+      --neutral-200: #4B5563;
+      --neutral-800: #F3F4F6;
+      --success-500: #34D399;
+      --error-500: #F87171;
+      --warning-500: #FBBF24;
+      --info-500: #60A5FA;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    // Theme Toggle Context
+    const { createContext, useContext, useState } = React;
+    const ThemeContext = createContext({
+      theme: 'light',
+      toggleTheme: () => {},
+    });
+
+    const ThemeProvider = ({ children }) => {
+      const [theme, setTheme] = useState('light');
+      const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+      };
+      return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          {children}
+        </ThemeContext.Provider>
+      );
+    };
+
+    // Badge Component
+    const Badge = ({ variant = 'primary', size = 'md', children, disabled = false }) => {
+      const sizeStyles = {
+        sm: 'px-2 py-1 text-xs',
+        md: 'px-3 py-1.5 text-sm',
+        lg: 'px-4 py-2 text-base',
+      };
+      const variantStyles = {
+        primary: 'bg-primary-500 text-white hover:bg-primary-600',
+        secondary: 'bg-secondary-500 text-white hover:bg-secondary-600',
+        success: 'bg-success-500 text-white hover:bg-success-600',
+        error: 'bg-error-500 text-white hover:bg-error-600',
+        warning: 'bg-warning-500 text-white hover:bg-warning-600',
+        info: 'bg-info-500 text-white hover:bg-info-600',
+      };
+      const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : '';
+
+      return (
+        <span
+          className={`inline-flex items-center rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ${sizeStyles[size]} ${variantStyles[variant]} ${disabledStyles}`}
+          role="status"
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : 0}
+        >
+          {children}
+        </span>
+      );
+    };
+
+    // Tabs Component
+    const Tabs = ({ items, orientation = 'horizontal', defaultActiveId = items[0]?.id }) => {
+      const [activeId, setActiveId] = useState(defaultActiveId);
+      const orientationStyles = orientation === 'horizontal' ? 'flex space-x-4 border-b' : 'flex flex-col space-y-2 border-l';
+
+      return (
+        <div className="w-full">
+          <nav className={orientationStyles} role="tablist">
+            {items.map((item) => (
+              <button
+                key={item.id}
+                className={`px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                  activeId === item.id
+                    ? 'border-b-2 border-primary-500 text-primary-500'
+                    : 'text-neutral-800 hover:text-primary-500'
+                } ${orientation === 'vertical' ? 'border-l-2' : ''}`}
+                onClick={() => setActiveId(item.id)}
+                role="tab"
+                aria-selected={activeId === item.id}
+                aria-controls={`panel-${item.id}`}
+                tabIndex={activeId === item.id ? 0 : -1}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+          <div className="mt-4">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                id={`panel-${item.id}`}
+                role="tabpanel"
+                aria-labelledby={item.id}
+                className={activeId === item.id ? 'block' : 'hidden'}
+              >
+                {item.content}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    // Main App Component
+    const App = () => {
+      const tabsData = [
+        { id: 'tab1', label: 'Tab 1', content: <p>Content for Tab 1</p> },
+        { id: 'tab2', label: 'Tab 2', content: <p>Content for Tab 2</p> },
+        { id: 'tab3', label: 'Tab 3', content: <p>Content for Tab 3</p> },
+      ];
+
+      return (
+        <ThemeProvider>
+          <div className="p-8 max-w-4xl mx-auto bg-neutral-50 min-h-screen">
+            <ThemeContext.Consumer>
+              {({ theme, toggleTheme }) => (
+                <button
+                  onClick={toggleTheme}
+                  className="mb-6 px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                  Toggle {theme === 'light' ? 'Dark' : 'Light'} Theme
+                </button>
+              )}
+            </ThemeContext.Consumer>
+
+            <h1 className="text-2xl font-bold mb-6 text-neutral-800">Design System Demo</h1>
+
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold mb-4 text-neutral-800">Badge Component</h2>
+              <div className="flex space-x-4">
+                <Badge variant="primary" size="sm">Primary</Badge>
+                <Badge variant="success" size="md">Success</Badge>
+                <Badge variant="error" size="lg" disabled>Error</Badge>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4 text-neutral-800">Tabs Component</h2>
+              <Tabs items={tabsData} orientation="horizontal" />
+            </section>
+          </div>
+        </ThemeProvider>
+      );
+    };
+
+    // Render App with Error Handling
+    try {
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    } catch (error) {
+      console.error('Failed to render React app:', error);
+      document.getElementById('root').innerHTML = '<h1>Error: Failed to load the application. Please check the console for details.</h1>';
+    }
+  </script>
+</body>
+</html>
+```
