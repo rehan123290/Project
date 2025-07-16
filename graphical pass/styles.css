@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 32px 24px 24px 24px;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 24px;
+    color: #333;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.grid-cell {
+    width: 60px;
+    height: 60px;
+    background: #e0e7ef;
+    border-radius: 8px;
+    border: 2px solid #b0b8c1;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+.grid-cell.selected {
+    background: #4f8cff;
+    border-color: #2563eb;
+}
+#submit-btn {
+    padding: 10px 24px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#submit-btn:hover {
+    background: #1d4ed8;
+}
+#message {
+    margin-top: 16px;
+    color: #e11d48;
+    min-height: 24px;
+}
+#mode-switch {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+#mode-switch button {
+    padding: 8px 20px;
+    background: #e0e7ef;
+    color: #2563eb;
+    border: 2px solid #b0b8c1;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+#mode-switch button.active, #mode-switch button:focus {
+    background: #2563eb;
+    color: #fff;
+    outline: none;
+}
+#attempts {
+    margin-top: 8px;
+    color: #555;
+    font-size: 15px;
+    min-height: 20px;
+} 
