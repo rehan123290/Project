@@ -1,0 +1,161 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fafafa;
+    color: #222;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+header {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 1rem 0;
+}
+.logo {
+    font-size: 2rem;
+    color: #ff5722;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+nav a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+nav a:hover {
+    color: #ff5722;
+}
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.hero {
+    background: linear-gradient(90deg, #ff7043 0%, #ffccbc 100%);
+    color: #fff;
+    padding: 4rem 0 3rem 0;
+    text-align: center;
+}
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+#orderNowBtn {
+    background: #fff;
+    color: #ff5722;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s;
+}
+#orderNowBtn:hover {
+    background: #ff5722;
+    color: #fff;
+}
+.featured-restaurants {
+    padding: 3rem 0;
+    background: #fff3e0;
+}
+.featured-restaurants h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #ff5722;
+}
+.restaurant-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.restaurant-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.5rem;
+    text-align: center;
+    width: 250px;
+    transition: transform 0.2s;
+}
+.restaurant-card:hover {
+    transform: translateY(-8px) scale(1.03);
+}
+.restaurant-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    height: 140px;
+    object-fit: cover;
+}
+.menu-highlights {
+    padding: 3rem 0;
+}
+.menu-highlights h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #ff5722;
+}
+.menu-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.menu-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.5rem;
+    text-align: center;
+    width: 250px;
+    transition: transform 0.2s;
+}
+.menu-item:hover {
+    transform: translateY(-8px) scale(1.03);
+}
+.menu-item img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    height: 140px;
+    object-fit: cover;
+}
+.price {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #ff5722;
+    font-weight: bold;
+}
+footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+@media (max-width: 900px) {
+    .restaurant-list, .menu-list {
+        flex-direction: column;
+        align-items: center;
+    }
+} 
